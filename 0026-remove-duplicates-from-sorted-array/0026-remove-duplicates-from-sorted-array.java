@@ -1,21 +1,16 @@
 class Solution {
     public int removeDuplicates(int[] nums) {
-        int k = 0;
-        int idx = 0;
-        int size = nums.length;
-        boolean isDuplicated = false;
+        int[] deleteDuplicatedNums = Arrays.stream(nums)
+                                                .distinct()
+                                                .toArray();
 
-        for (int i = 1; i < size; i++) {
-            int num = nums[idx];
-            if (nums[i] == num && !isDuplicated) {
-                isDuplicated = true;
-                nums[idx] = num;
+        int k = deleteDuplicatedNums.length;
 
-            } else if (nums[i] != num) {
-                isDuplicated = false;
-                nums[++idx] = nums[i];
-            }
+        for (int i = 0; i < k; i++) {
+            nums[i] = deleteDuplicatedNums[i];
         }
-        return k = idx + 1;
+
+        return k;
+        
     }
 }
