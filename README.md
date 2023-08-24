@@ -1,2 +1,2 @@
 # leetcode-study
-Collection of LeetCode questions to ace the coding interview! - Created using [LeetHub v2](https://github.com/arunbhardwaj/LeetHub-2.0)
+리트코드 연습 저장 페이지
