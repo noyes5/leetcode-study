@@ -6,7 +6,7 @@ class Solution {
 
         for (int i = 0; i < nums.length; i++) {
             arraySum += nums[i];
-            
+
             while (arraySum >= target) {
                 arraySum -= nums[left];
                 min = Math.min(min, i - left + 1);
