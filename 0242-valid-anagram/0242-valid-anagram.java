@@ -5,20 +5,17 @@ class Solution {
         }
         int[] arr = new int[26];
 
-        for (char data : t.toCharArray()) {
-            arr[data - 'a']++;
+        for (int i = 0; i < s.length(); i++) {
+            arr[s.charAt(i) - 'a']++;
+            arr[t.charAt(i) - 'a']--;
         }
 
-        for (char data2 : s.toCharArray()) {
-            if (arr[data2 - 'a'] == 0) {
+        for (int count : arr) {
+            if (count != 0) {
                 return false;
             }
-            arr[data2 - 'a']--;
         }
 
-
-
         return true;
-
     }
 }
