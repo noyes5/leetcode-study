@@ -10,10 +10,9 @@ class Solution {
         }
 
         for (char data2 : s.toCharArray()) {
-            if (!(arr[data2 - 'a'] > 0)) {
+            if (arr[data2 - 'a'] == 0) {
                 return false;
             }
-
             arr[data2 - 'a']--;
         }
 
