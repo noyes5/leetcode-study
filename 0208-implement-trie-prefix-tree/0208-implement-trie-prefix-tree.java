@@ -54,11 +54,11 @@ class Trie {
         Node currentNode = this.root;
         
         for (char c : prefix.toCharArray()) {  
-            Node child = currentNode.children.get(c);
-            if (child == null) {
+            Node childredNode = currentNode.children.get(c);
+            if (childredNode == null) {
                 return false;
             }
-            currentNode = child;
+            currentNode = childredNode;
         }
         return true;
     }
