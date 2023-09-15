@@ -1,61 +1,39 @@
-class Solution {
-    int snakesAndLadders(int[][] board) {
-        Map<Integer, Integer> map = new HashMap<>();
-        int n = board[0].length;
-        int number = 1;
-        boolean isRightDirection = true;
-        for (int i = board.length - 1; i >= 0; i--) {
-            if (isRightDirection) {
-                for (int j = 0; j < board[0].length; j++) {
-                    map.put(number, board[i][j]);
-                    number++;
-                }
-            } else {
-                for (int j = board[0].length - 1; j >= 0; j--) {
-                    map.put(number, board[i][j]);
-                    number++;
-                }
+import java.util.*;
+class Solution 
+{
+    public int snakesAndLadders(int[][] board) 
+    {
+        int rows = board.length, cols = board[0].length, target = rows * cols, r, c, p;
+        boolean[] visited = new boolean[rows * cols + 1]; // cells on board start from 1
+        // queue contains <priority, square> sorted ascending by priority
+        // prio = #steps * 1000 + (500 - square);
+        // number of steps is critical and adds 1000; 500 is selected as it is higher than the max cell (20*20=400)
+        PriorityQueue<int[]> q = new PriorityQueue<>((a, b) -> a[0] - b[0]);
+        q.offer(new int[] {0, 1}); // 0 steps to position 1
+        visited[1] = true;
+
+        while (!q.isEmpty()) 
+        {
+            int[] step_pos = q.poll();
+            int s = step_pos[0] / 1000 + 1;
+            for (int i = 1; i <= 6; i++) 
+            {
+                p = step_pos[1] + i;
+                if (visited[p]) continue;
+                visited[p] = true;
+
+                r = rows - (p - 1) / cols - 1;
+                c = (p - 1) % cols;
+                if ((rows - r - 1) % 2 == 1) 
+                    c = cols - c - 1; // change direction for odd lines
+                int ladder = board[r][c];
+                
+                if (ladder > 0 && ladder <= target)
+                    p = ladder; // no update for steps. allow to come here again with a dice
+                if (p == target) 
+                    return s;
+                q.offer(new int[] {s * 1000 + 500 - p, p});
             }
-            isRightDirection = !isRightDirection;
-        }
-
-        Queue<Integer> queue = new LinkedList<>();
-        Set<Integer> visited = new HashSet<>();
-
-        queue.offer(1);
-        int count = 0;
-        visited.add(1);
-        while (!queue.isEmpty()) {
-            System.out.println(visited);
-            int size = queue.size();
-            for (int h = 0; h < size; h++) {
-                int current = queue.poll();
-
-                if (current == n * n) {
-                    return count;
-                }
-
-                for (int i = 1; i < 7; i++) {
-                    int nextNumber = current + i;
-                    
-                    if (nextNumber == n * n) {
-                        queue.offer(nextNumber);
-
-                        break;
-                    }
-                    if (nextNumber <= n * n) {
-                        if (map.get(nextNumber) != -1) {
-                            nextNumber = map.get(nextNumber);
-                        }
-
-                        if (!visited.contains(nextNumber)) {
-                            visited.add(nextNumber);
-                            queue.offer(nextNumber);
-                        }
-                    }
-                }
-            }
-            count++;
         }
         return -1;
     }
