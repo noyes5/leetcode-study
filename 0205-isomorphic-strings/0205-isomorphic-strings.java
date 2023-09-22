@@ -1,23 +1,14 @@
 class Solution {
     public boolean isIsomorphic(String s, String t) {
-        Map<Character, Character> map = new HashMap<>();
+        int[] ascArr = new int[128];
+        int[] ascArr2 = new int[128];
 
         for (int i = 0; i < s.length(); i++) {
-            char c = s.charAt(i);
-            char c2 = t.charAt(i);
-
-            if (map.get(c) == null) {
-                map.put(c, c2);
-                
-                if (map.size() != map.values().stream()
-                .distinct()
-                .collect(Collectors.toList())
-                .size()) {
-                    return false;
-                }
-            } else if (map.get(c) != c2) {
+            if (ascArr[s.charAt(i)] != ascArr2[t.charAt(i)]) {
                 return false;
             }
+            ascArr[s.charAt(i)] = i + 1;
+            ascArr2[t.charAt(i)] = i + 1;
         }
         return true;
     }
