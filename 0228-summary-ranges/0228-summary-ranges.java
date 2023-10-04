@@ -4,34 +4,34 @@ class Solution {
         if (nums.length == 0) {
             return new ArrayList<>();
         }
-        if (nums.length == 1) {
-            list.add(nums[0] + "");
-            return list;
-        }
-        int standard = nums[0];
-        int count = 1;
+
+        int start = nums[0];
+        int end = start;
+        StringBuilder sb = new StringBuilder();
 
         for (int i = 1; i < nums.length; i++) { 
-            if (nums[i] != standard + count) {
-                if (count == 1) {
-                    list.add(nums[i - 1] + "");
-                } else {
-                    list.add(standard + "->" + nums[i - 1]);
-                }
-                standard = nums[i];
-                count = 1;
+            if (nums[i] == end + 1) {
+                end = nums[i];
             } else {
-                count++;
-            }
-
-            if (i == nums.length - 1) {
-                if (count == 1) {
-                    list.add(nums[i] + "");
+                sb.setLength(0); // StringBuilder 재사용을 위해 길이를 0으로 설정
+                if (start == end) {
+                    sb.append(start);
                 } else {
-                    list.add(standard + "->" + nums[i]);
+                    sb.append(start).append("->").append(end);
                 }
+                list.add(sb.toString());
+                start = nums[i];
+                end = start;
             }
         }
+
+        sb.setLength(0); 
+        if (start == end) {
+            sb.append(start);
+        } else {
+            sb.append(start).append("->").append(end);
+        }
+        list.add(sb.toString());
 
         return list;
     }
