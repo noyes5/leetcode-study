@@ -35,7 +35,7 @@ class Solution {
                     q.offer(cur.right);
                 }
             }
-            list.add((double) sum / size);
+            list.add(sum / size);
         }
         return list;
     }
