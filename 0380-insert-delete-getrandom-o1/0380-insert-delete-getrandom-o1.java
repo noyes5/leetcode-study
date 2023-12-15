@@ -1,12 +1,11 @@
 class RandomizedSet {
     private final Map<Integer, Integer> indexMap;
     private final List<Integer> elements;
-    private final Random random;
+    private final Random random = new Random();
 
     public RandomizedSet() {
         indexMap = new HashMap<>();
-        elements = new LinkedList<>();
-        random = new Random();
+        elements = new ArrayList<>();
     }
     
     public boolean insert(int val) {
@@ -38,3 +37,11 @@ class RandomizedSet {
         return elements.get(random.nextInt(elements.size()));
     }
 }
+
+/**
+ * Your RandomizedSet object will be instantiated and called as such:
+ * RandomizedSet obj = new RandomizedSet();
+ * boolean param_1 = obj.insert(val);
+ * boolean param_2 = obj.remove(val);
+ * int param_3 = obj.getRandom();
+ */
