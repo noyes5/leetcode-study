@@ -1,19 +1,16 @@
 class Solution {
     public int climbStairs(int n) {
-        if (n <= 2) {
-            return n;
+        int[] dp = new int[n + 1];
+        dp[1] = 1;
+        if (n < 2) {
+            return dp[n];
         }
-        int[] stepSum = new int[n + 1];
-        stepSum[1] = 1;
-        stepSum[2] = 2;
-
-        return recursive(n, stepSum);
-    }
-
-    private int recursive(int n, int[] stepSum) {
-        if (stepSum[n] == 0) {
-            stepSum[n] = recursive(n - 1, stepSum) + recursive(n - 2, stepSum);
+        dp[2] = 2;
+        for (int i = 3; i <= n; i++) {
+            dp[i] = dp[i - 1] + dp[i - 2];
         }
-        return stepSum[n];
+
+        return dp[n];
+
     }
 }
